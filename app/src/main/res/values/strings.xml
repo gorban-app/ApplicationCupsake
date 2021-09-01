@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ApplicationCupsake</string>
+    <string name="true_btn">True</string>
+    <string name="false_btn">False</string>
+    <string name="question_text">Hello World!</string>
+
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
+</resources>
