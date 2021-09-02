@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +33,6 @@ public class QuizActivity extends AppCompatActivity {
         uiComponent();
         onClickButton();
     }
-
 
     private void onClickButton() {
         btnTrue.setOnClickListener(v -> showToast(R.string.correct_toast));
