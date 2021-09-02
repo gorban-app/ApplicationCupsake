@@ -18,6 +18,16 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button btnTrue;
     private Button btnFalse;
+    private Button btnNext;
+    private Question[] questionsBank = {
+            new Question(R.string.question_australia, true),
+            new Question(R.string.question_oceans, true),
+            new Question(R.string.question_mideast, false),
+            new Question(R.string.question_africa, false),
+            new Question(R.string.question_america, true),
+            new Question(R.string.question_asia, true)
+    };
+    private int currentIndex = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -25,11 +35,8 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         TextView textView = (TextView) findViewById(R.id.tv_hello_world);
-        InputStream file = getResources().openRawResource(R.raw.readme);
-        String readText = new BufferedReader(new InputStreamReader(file))
-                .lines()
-                .collect(Collectors.joining("\n"));
-        textView.setText(readText);
+        int question = questionsBank[currentIndex].getIdTextResId();
+        textView.setText(question);
         uiComponent();
         onClickButton();
     }
@@ -37,11 +44,13 @@ public class QuizActivity extends AppCompatActivity {
     private void onClickButton() {
         btnTrue.setOnClickListener(v -> showToast(R.string.correct_toast));
         btnFalse.setOnClickListener(v -> showToast(R.string.incorrect_toast));
+
     }
 
     private void uiComponent() {
         btnTrue = findViewById(R.id.true_btn);
         btnFalse = findViewById(R.id.false_btn);
+        btnNext = findViewById(R.id.next_btn);
     }
 
     private void showToast(int messageToast) {
