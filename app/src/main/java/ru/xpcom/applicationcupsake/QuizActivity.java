@@ -1,24 +1,25 @@
 package ru.xpcom.applicationcupsake;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
 public class QuizActivity extends AppCompatActivity {
 
     private Button btnTrue;
     private Button btnFalse;
-    private Button btnNext;
+    private ImageButton btnNext;
+    private ImageButton btnPrev;
+    private TextView txtQuestion;
     private Question[] questionsBank = {
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
@@ -34,26 +35,45 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        TextView textView = (TextView) findViewById(R.id.tv_hello_world);
-        int question = questionsBank[currentIndex].getIdTextResId();
-        textView.setText(question);
         uiComponent();
         onClickButton();
+        updateQuestion();
     }
 
     private void onClickButton() {
-        btnTrue.setOnClickListener(v -> showToast(R.string.correct_toast));
-        btnFalse.setOnClickListener(v -> showToast(R.string.incorrect_toast));
+        btnTrue.setOnClickListener(v -> showToast(checkAnswer(true)));
+        btnFalse.setOnClickListener(v -> showToast(checkAnswer(false)));
+        btnNext.setOnClickListener(v -> {
+            currentIndex = (currentIndex + 1) % questionsBank.length;
+            updateQuestion();
+        });
+        btnPrev.setOnClickListener(v -> {
+            if(currentIndex == 0) return;
+            currentIndex = (currentIndex - 1) % questionsBank.length;
+            updateQuestion();
+        });
+    }
 
+    private int checkAnswer(boolean userPressedTrue) {
+        boolean isAnswerTrue = questionsBank[currentIndex].isAnswerTrue();
+        if (userPressedTrue == isAnswerTrue) return R.string.correct_toast;
+        return R.string.incorrect_toast;
+    }
+
+    private void updateQuestion() {
+        int question = questionsBank[currentIndex].getIdTextResId();
+        txtQuestion.setText(question);
     }
 
     private void uiComponent() {
         btnTrue = findViewById(R.id.true_btn);
         btnFalse = findViewById(R.id.false_btn);
         btnNext = findViewById(R.id.next_btn);
+        btnPrev = findViewById(R.id.prev_btn);
+        txtQuestion = findViewById(R.id.question_text);
     }
 
     private void showToast(int messageToast) {
-        Toast.makeText(getApplicationContext(), messageToast , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), messageToast, Toast.LENGTH_LONG).show();
     }
 }

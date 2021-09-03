@@ -4,48 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizActivity"
+    android:gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".QuizActivity">
 
     <TextView
-        android:id="@+id/tv_hello_world"
+        android:id="@+id/question_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="24dp"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:padding="24dp" />
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/true_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:padding="4dp"
-            android:text="@string/true_btn"/>
+            android:text="@string/true_btn" />
+
         <Button
             android:id="@+id/false_btn"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:padding="4dp"
-            android:text="@string/false_btn"/>
+            android:text="@string/false_btn" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/next_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:padding="4dp"
-        android:text="@string/next_btn"/>
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/prev_btn"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/content_desc_button_back" />
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:src="@drawable/ic_arrow_forward"
+            android:contentDescription="@string/content_desc_button_next" />
+    </LinearLayout>
 </LinearLayout>
