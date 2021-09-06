@@ -17,6 +17,8 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
+
 
     private Button btnTrue;
     private Button btnFalse;
@@ -80,7 +82,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void btnVisibleAndInvisible() {
         if(currentIndex == 0) btnPrev.setVisibility(View.INVISIBLE);
-        else if(currentIndex == 1) btnNext.setVisibility(View.INVISIBLE);
+        else if(currentIndex == questionsBank.length-1) btnNext.setVisibility(View.INVISIBLE);
         else {
             btnPrev.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.VISIBLE);
@@ -119,6 +121,12 @@ public class QuizActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop called");
+    }
+
+    @Override
+    public  void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState");
     }
 
 }
