@@ -8,14 +8,42 @@
     android:orientation="vertical"
     tools:context=".QuizActivity">
 
-    <TextView
-        android:id="@+id/question_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="24dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/prev_btn"
+            android:onClick="onClickButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/content_desc_button_back" />
+
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:gravity="center"
+            android:padding="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:src="@drawable/ic_arrow_forward"
+            android:contentDescription="@string/content_desc_button_next" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,7 +57,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:onClick="onClickButton"
             android:text="@string/true_btn" />
 
         <Button
@@ -37,35 +64,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:onClick="onClickButton"
             android:text="@string/false_btn" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/prev_btn"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:contentDescription="@string/content_desc_button_back"
-            android:gravity="center"
-            android:onClick="onClickButton"
-            android:src="@drawable/ic_arrow_back" />
-
-        <ImageButton
-            android:id="@+id/next_btn"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:contentDescription="@string/content_desc_button_next"
-            android:gravity="center"
-            android:onClick="onClickButton"
-            android:src="@drawable/ic_arrow_forward" />
-    </LinearLayout>
 </LinearLayout>
