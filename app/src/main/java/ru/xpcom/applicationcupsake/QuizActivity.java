@@ -2,6 +2,7 @@ package ru.xpcom.applicationcupsake;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +26,9 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton btnNext;
     private ImageButton btnPrev;
     private TextView txtQuestion;
+    private boolean blockBtn;
+    private int sum = 0;
+    private int sumQuestion = 0;
     private Question[] questionsBank = {
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
@@ -40,17 +44,30 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        if(savedInstanceState != null) currentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         uiComponent();
         updateQuestion();
         btnVisibleAndInvisible();
         Log.d(TAG, "onCreate(Bundle) called");
     }
 
+    private int getSumPoints(boolean volume) {
+        sumQuestion += 1;
+        boolean isAnswerTrue = questionsBank[currentIndex].isAnswerTrue();
+        if (volume == isAnswerTrue)
+            return sum += 1;
+        return sum;
+    }
+
     public void onClickButton(View view){
-        if(view.getId() == R.id.true_btn) {
+        if(view.getId() == R.id.true_btn && blockBtn) {
             showToast(checkAnswer(true));
-        } else if(view.getId() == R.id.false_btn){
+            getSumPoints(true);
+            blockBtn = false;
+        } else if(view.getId() == R.id.false_btn && blockBtn){
             showToast(checkAnswer(false));
+            getSumPoints(false);
+            blockBtn = false;
         } else if(view.getId() == R.id.next_btn) {
             currentIndex = (currentIndex + 1) % questionsBank.length;
             updateQuestion();
@@ -59,6 +76,8 @@ public class QuizActivity extends AppCompatActivity {
             updateQuestion();
         }
         btnVisibleAndInvisible();
+        if(sumQuestion == questionsBank.length) showToast("Your pints: " + (double) (100 / questionsBank.length * sum));
+
     }
 
     private int checkAnswer(boolean userPressedTrue) {
@@ -70,6 +89,7 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestion() {
         int question = questionsBank[currentIndex].getIdTextResId();
         txtQuestion.setText(question);
+        blockBtn = true;
     }
 
     private void uiComponent() {
@@ -90,6 +110,10 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void showToast(int messageToast) {
+        Toast.makeText(getApplicationContext(), messageToast, Toast.LENGTH_LONG).show();
+    }
+
+    private void showToast(String messageToast) {
         Toast.makeText(getApplicationContext(), messageToast, Toast.LENGTH_LONG).show();
     }
 
@@ -124,9 +148,11 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     @Override
-    public  void onSaveInstanceState(Bundle outState) {
+    public  void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState");
+        outState.putInt(KEY_INDEX, currentIndex);
+        outState.putInt(KEY_INDEX, sum);
     }
 
 }
