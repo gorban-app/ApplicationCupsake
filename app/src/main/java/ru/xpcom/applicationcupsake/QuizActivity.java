@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,10 +73,11 @@ public class QuizActivity extends AppCompatActivity {
         } else if(view.getId() == R.id.prev_btn) {
             currentIndex = (currentIndex - 1) % questionsBank.length;
             updateQuestion();
+        } else if(view.getId() == R.id.cheat_button) {
+            Intent intent = new Intent(this, CheatActivity.class);
+            startActivity(intent);
         }
         btnVisibleAndInvisible();
-        if(sumQuestion == questionsBank.length) showToast("Your pints: " + (double) (100 / questionsBank.length * sum));
-
     }
 
     private int checkAnswer(boolean userPressedTrue) {

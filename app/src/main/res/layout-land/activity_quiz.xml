@@ -16,13 +16,13 @@
 
         <ImageButton
             android:id="@+id/prev_btn"
-            android:onClick="onClickButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:contentDescription="@string/content_desc_button_back"
             android:gravity="center"
-            android:src="@drawable/ic_arrow_back"
-            android:contentDescription="@string/content_desc_button_back" />
+            android:onClick="onClickButton"
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
             android:id="@+id/question_text"
@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:contentDescription="@string/content_desc_button_next"
             android:gravity="center"
-            android:src="@drawable/ic_arrow_forward"
-            android:contentDescription="@string/content_desc_button_next" />
+            android:src="@drawable/ic_arrow_forward" />
     </LinearLayout>
 
 
@@ -67,6 +67,13 @@
             android:text="@string/false_btn" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/cheat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickButton"
+        android:text="@string/cheat_button" />
 
 
 </LinearLayout>
