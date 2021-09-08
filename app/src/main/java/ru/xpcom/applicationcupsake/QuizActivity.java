@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    private static final String EXTRA_ANSWER_IS_TRUE = "quiz_activity_extra_answer_is_true";
 
 
     private Button btnTrue;
@@ -74,8 +76,7 @@ public class QuizActivity extends AppCompatActivity {
             currentIndex = (currentIndex - 1) % questionsBank.length;
             updateQuestion();
         } else if(view.getId() == R.id.cheat_button) {
-            Intent intent = new Intent(this, CheatActivity.class);
-            startActivity(intent);
+            // TODO
         }
         btnVisibleAndInvisible();
     }
@@ -153,6 +154,12 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG, "onSaveInstanceState");
         outState.putInt(KEY_INDEX, currentIndex);
         outState.putInt(KEY_INDEX, sum);
+    }
+
+    public static Intent newIntent(Context context, boolean answerIsTrue) {
+        Intent intent = new Intent(context, CheatActivity.class);
+        intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+        return intent;
     }
 
 }
