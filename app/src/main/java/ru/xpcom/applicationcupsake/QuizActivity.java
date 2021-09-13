@@ -20,6 +20,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
     private static final String EXTRA_ANSWER_IS_TRUE = "quiz_activity_extra_answer_is_true";
+    private static final int REQUEST_CODE_CHEAT = 0;
 
 
     private Button btnTrue;
@@ -76,7 +77,10 @@ public class QuizActivity extends AppCompatActivity {
             currentIndex = (currentIndex - 1) % questionsBank.length;
             updateQuestion();
         } else if(view.getId() == R.id.cheat_button) {
-            // TODO
+            boolean answerIsTrue = questionsBank[currentIndex].isAnswerTrue();
+            Intent intent = CheatActivity.newIntent(this, answerIsTrue);
+            startActivityForResult(intent, REQUEST_CODE_CHEAT);
+
         }
         btnVisibleAndInvisible();
     }
